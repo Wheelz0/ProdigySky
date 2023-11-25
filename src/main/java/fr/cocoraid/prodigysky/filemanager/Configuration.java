@@ -4,6 +4,7 @@ import com.mojang.serialization.Lifecycle;
 import fr.cocoraid.prodigysky.ProdigySky;
 import net.minecraft.core.IRegistry;
 import net.minecraft.core.IRegistryWritable;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.MinecraftKey;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.dedicated.DedicatedServer;
@@ -14,7 +15,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_17_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_20_R2.CraftServer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class Configuration {
             }
         }
 
-        DedicatedServer ds = ((CraftServer)Bukkit.getServer()).getHandle().getServer();
+        DedicatedServer ds = ((CraftServer)Bukkit.getServer()).getHandle().b();
         ConfigurationSection section = data.getConfigurationSection("custom_colors");
 
         if(data.isSet("custom_colors")) {
@@ -75,7 +76,7 @@ public class Configuration {
                     Bukkit.getLogger().log(Level.WARNING, "Color name " + colorName + " already exists !");
                     continue;
                 }
-                ResourceKey<BiomeBase> newKey = ResourceKey.a(IRegistry.aO, new MinecraftKey(colorName));
+                ResourceKey<BiomeBase> newKey = ResourceKey.a(Registries.ap, new MinecraftKey(colorName));
 
                 String key = colorName + ".";
                 String fog = section.getString(key + "fog");
